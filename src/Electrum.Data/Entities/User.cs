@@ -1,6 +1,6 @@
 ﻿namespace Electrum.Data.Entities
 {
-    public class User : BaseEntity
+    public class User
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

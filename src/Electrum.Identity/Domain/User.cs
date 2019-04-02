@@ -1,4 +1,5 @@
 ﻿using CryptoHelper;
+using Electrum.Common.Domain;
 using Electrum.Common.Types;
 using System;
 using System.Text.RegularExpressions;
@@ -49,5 +50,7 @@ namespace Electrum.Identity.Domain
 
             PasswordHash = Crypto.HashPassword(password);
         }
+
+        public bool ValidatePassword(string password) => Crypto.VerifyHashedPassword(PasswordHash, password);
     }
 }

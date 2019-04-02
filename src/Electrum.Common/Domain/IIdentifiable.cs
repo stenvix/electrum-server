@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Electrum.Identity.Domain
+namespace Electrum.Common.Domain
 {
     public interface IIdentifiable
     {

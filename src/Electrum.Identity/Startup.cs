@@ -1,6 +1,9 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Electrum.Common.Mongo;
 using Electrum.EventBusRabbitMQ;
+using Electrum.Identity.Authentication;
+using Electrum.Identity.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -28,9 +31,11 @@ namespace Electrum.Identity
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddControllersAsServices();
+            services.AddJwt();
             var containerBuilder = new ContainerBuilder();
             containerBuilder.Populate(services);
             containerBuilder.AddRabbitMq();
+            containerBuilder.AddMongoRepository<User>("users");
             Container = containerBuilder.Build();
             return new AutofacServiceProvider(Container);
         }

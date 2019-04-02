@@ -24,6 +24,7 @@ namespace Electrum.Api
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddJwt();
             services.RegisterServiceForwarder<IIdentityService>("identity-service");
             var builder = new ContainerBuilder();
             builder.Populate(services);
