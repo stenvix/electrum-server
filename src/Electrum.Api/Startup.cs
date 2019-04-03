@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Electrum.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +24,6 @@ namespace Electrum.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddJwt();
-            services.RegisterServiceForwarder<IIdentityService>("identity-service");
             var builder = new ContainerBuilder();
             builder.Populate(services);
             Container = builder.Build();
