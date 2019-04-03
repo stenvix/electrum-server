@@ -1,16 +1,16 @@
 #!/bin/bash
-BUILD=./scripts/docker-build-local.sh
+export ASPNETCORE_ENVIRONMENT=local
+PUBLISH=./scripts/dotnet-publish.sh
 PREFIX=src/Electrum
-SERVICE=$PREFIX.Services
 REPOSITORIES=($PREFIX.Api $PREFIX.Identity)
 # REPOSITORIES=($PREFIX.Api $PREFIX.Api.Next $SERVICE.Customers $SERVICE.Identity $SERVICE.Notifications $SERVICE.Operations $SERVICE.Orders $SERVICE.Products $SERVICE.Signalr)
 
 for REPOSITORY in ${REPOSITORIES[*]}
 do
 	 echo ========================================================
-	 echo Building a local Docker image: $REPOSITORY
+	 echo Publishing a project: $REPOSITORY
 	 echo ========================================================
      cd $REPOSITORY
-     $BUILD
+     $PUBLISH
      cd ../..
 done
