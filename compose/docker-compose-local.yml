@@ -1,0 +1,22 @@
+version: "3.5"
+
+services:
+  api:
+    image: electrum.api:local
+    container_name: api
+    ports:
+      - '5000:5000'
+    networks:
+      - electrum
+  identity:
+    image: electrum.identity:local
+    container_name: identity
+    ports:
+      - '5010:5000'
+    networks:
+      - electrum
+
+networks:
+  electrum:
+    name: electrum-network
+    external: true
