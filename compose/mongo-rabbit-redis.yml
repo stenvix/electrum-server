@@ -38,6 +38,7 @@ services:
 networks:
   electrum:
     name: electrum-network
+    external: true
 
 volumes:
   mongo:
