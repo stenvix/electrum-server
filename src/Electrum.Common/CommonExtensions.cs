@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Electrum.Common.Middlewares;
+using Microsoft.AspNetCore.Builder;
 
 namespace Electrum.Common
 {
@@ -35,5 +37,8 @@ namespace Electrum.Common
 
             return model;
         }
+
+        public static IApplicationBuilder UseErrorHandler(this IApplicationBuilder builder)
+            => builder.UseMiddleware<ErrorHandlerMiddleware>();
     }
 }

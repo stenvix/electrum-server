@@ -4,12 +4,15 @@ using Electrum.Common.Mongo;
 using Electrum.EventBusRabbitMQ;
 using Electrum.Identity.Authentication;
 using Electrum.Identity.Domain;
+using Electrum.Identity.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Electrum.Common;
+using Electrum.Identity.Repositories;
 
 namespace Electrum.Identity
 {
@@ -35,7 +38,10 @@ namespace Electrum.Identity
             var containerBuilder = new ContainerBuilder();
             containerBuilder.Populate(services);
             containerBuilder.AddRabbitMq();
+            containerBuilder.AddMongo();
             containerBuilder.AddMongoRepository<User>("users");
+            containerBuilder.RegisterType<UserRepository>().AsImplementedInterfaces();
+            containerBuilder.RegisterType<IdentityService>().AsImplementedInterfaces();
             Container = containerBuilder.Build();
             return new AutofacServiceProvider(Container);
         }
@@ -55,6 +61,7 @@ namespace Electrum.Identity
 
             //            app.UseHttpsRedirection();
             app.UseRabbitMq();
+            app.UseErrorHandler();
             app.UseMvc();
             applicationLifetime.ApplicationStopped.Register(Container.Dispose);
         }
